@@ -334,24 +334,30 @@ could be useful, but WITHOUT ANY WARRANTY. See the GNU General Public License fo
 The Smart Grids Research Group keeps seeking solutions for the current and future smart grids, we are open to further discussion.
 
 <!-- TOC --><a name="sgfg-contributors"></a>
-### SGFG contributors:
+### SGFG contributors (in chronological order):
 
 - **F. Ebe**: Initiative for the deployment of `libIEC61850` in SGFG
 - **H. Lorenz**: first SGFG developer using `libIEC61850` and Qt 
 - **J. Morris**: initial compilation of the Python binding `pyIEC61850` and testing of the `libIEC61850` 
-  server/client API
-  use in Windows environment. 
+  server/client API in Windows environment. 
 - **S. Chen**: adaption of the Python binding `pyIEC61850` to 64-bit linux environment (amd64, arm64) and docker 
-  application, 
-  developer of the testing scripts using the `libIEC61850` server/client API. Main contributor of this git repo and the documentations.
+  application, developer of the testing scripts using the `libIEC61850` server/client API. **Main contributor** of this git repo and the documentations.
 - **Z. Lu**: compiling hints for the version **libIEC61850-1.6** to get around GOOSE and SV related compiling errors.
 , support in establishing the docker workflow
-- **Z. Zhang**: compiling of the Python binding on 32-bit linux platform, testing of the compiled libs for 
+- **Z. Zhang**: compiling of the Python binding on 32-bit raspberry, testing of the compiled libs for 
   several OS and applications.
 - **M. Schwarz**: testing of the compiled libs for several OS and applications.
-- **A. Pandey**: systematic compiling and testing of the Python binding for almost common combinations of OS, 
-  python version and `libIEC61850` version except for 32-bit linux; reduction of docker image size; refinement of 
+- **A. Pandey**: systematic compiling and testing of the Python binding for combinations of common linux OS, 
+  python version and `libIEC61850` version except for 32-bit raspberry; reduction of docker image size; refinement of 
   the workflow documentation.
+
+
+## Funding
+The work documented in this repo was funded by the following research projects:
+
+- "MeGA", grant number 03EI6108E (BMWK)
+- “SERENDI-PV”, grant number 953016 (EU H2020)
+
 
 <!-- TOC --><a name="official-websites-of-libiec61850"></a>
 ### official websites of libIEC61850:
