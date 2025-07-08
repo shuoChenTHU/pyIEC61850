@@ -1,0 +1,251 @@
+/work/pyiec61850_compiled # find . -type f -name '*_iec61850.so' -exec sh -c 'echo "$1"; readelf -d "$1" | grep -Ei "rpath|runpath"; echo' _ {} \;
+./linux_amd64_x86-64_docker/1.5.0/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.0/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.0/python37/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.0/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.0/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.0/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.0/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_amd64_x86-64_docker/1.4.1/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.4.1/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.4.1/python37/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.4.1/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.4.1/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.4.1/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.4.1/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.1/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.1/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.1/python37/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.1/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.1/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.1/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_amd64_x86-64_docker/1.5.1/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_amd64_x86-64/1.5.0/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.0/build312/src:]
+
+./linux_amd64_x86-64/1.5.0/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.0/build311/src:]
+
+./linux_amd64_x86-64/1.5.0/python37/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.0/build37/src:]
+
+./linux_amd64_x86-64/1.5.0/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.0/build38/src:]
+
+./linux_amd64_x86-64/1.5.0/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.0/build39/src:]
+
+./linux_amd64_x86-64/1.5.0/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.0/build310/src:]
+
+./linux_amd64_x86-64/1.5.0/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.0/build313/src:]
+
+./linux_amd64_x86-64/1.4.1/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.4.1/build312/src:]
+
+./linux_amd64_x86-64/1.4.1/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.4.1/build311/src:]
+
+./linux_amd64_x86-64/1.4.1/python37/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.4.1/build37/src:]
+
+./linux_amd64_x86-64/1.4.1/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.4.1/build38/src:]
+
+./linux_amd64_x86-64/1.4.1/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.4.1/build39/src:]
+
+./linux_amd64_x86-64/1.4.1/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.4.1/build310/src:]
+
+./linux_amd64_x86-64/1.4.1/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.4.1/build313/src:]
+
+./linux_amd64_x86-64/1.5.1/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.1/build312/src:]
+
+./linux_amd64_x86-64/1.5.1/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.1/build311/src:]
+
+./linux_amd64_x86-64/1.5.1/python37/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.1/build37/src:]
+
+./linux_amd64_x86-64/1.5.1/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.1/build38/src:]
+
+./linux_amd64_x86-64/1.5.1/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.1/build39/src:]
+
+./linux_amd64_x86-64/1.5.1/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.1/build310/src:]
+
+./linux_amd64_x86-64/1.5.1/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/home/libiec61850/libiec61850-1.5.1/build313/src:]
+
+./linux_arm64_aarch64/1.5.0/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_arm64_aarch64/1.5.0/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_arm64_aarch64/1.5.0/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_arm64_aarch64/1.5.0/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_arm64_aarch64/1.5.0/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.0/build/src:]
+
+./linux_arm64_aarch64/1.5.0/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_arm64_aarch64/1.4.1/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_arm64_aarch64/1.4.1/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_arm64_aarch64/1.4.1/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_arm64_aarch64/1.4.1/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_arm64_aarch64/1.4.1/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_arm64_aarch64/1.4.1/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.4.1/build/src:]
+
+./linux_arm64_aarch64/1.5.1/python312/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_arm64_aarch64/1.5.1/python311/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_arm64_aarch64/1.5.1/python38/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_arm64_aarch64/1.5.1/python39/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_arm64_aarch64/1.5.1/python310/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+
+./linux_arm64_aarch64/1.5.1/python313/_iec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/usr/local/lib:/work/libiec61850-1.5.1/build/src:]
+ 
+ 
+/work/pyiec61850_compiled # find . -type f -name '*_pyiec61850.so' -exec sh -c 'echo "$1"; readelf -d "$1" | grep -Ei "rpath|runpath"; echo' _ {} \;
+./linux_amd64_x86-64_docker/1.6.0/python312/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64_docker/1.6.0/python311/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64_docker/1.6.0/python38/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64_docker/1.6.0/python39/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64_docker/1.6.0/python310/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64_docker/1.6.0/python313/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64/1.6.0/python312/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64/1.6.0/python311/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64/1.6.0/python38/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64/1.6.0/python39/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64/1.6.0/python310/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_amd64_x86-64/1.6.0/python313/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python312/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python311/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python38/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python39/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python310/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python313/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python311/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python38/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python39/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python310/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
+
+./linux_arm64_aarch64/1.6.0/python313/_pyiec61850.so
+ 0x000000000000001d (RUNPATH)            Library runpath: [/work/libiec61850-1.6/build/src:]
