@@ -39,7 +39,8 @@ Some important documentations can be found in the [doc](doc) folder, including:
 - [Compiling for **Windows** applications](doc/Compiling_Python_windows.md)
 - [Compiling for **Linux (AMD x86-64)** (WSL2, QNAP) using Docker](doc/Compiling_Python_linux_x86-64.md)
 - [Compiling for **Linux (ARM64)** (raspberry pi 4/5) using Docker](doc/Compiling_Python_linux_arm64.md)
- 
+
+
 <!-- TOC --><a name="quick-step-by-step-workflow-for-compiling-and-testing-pyiec61850"></a>
 ### Quick Step-by-step workflow for compiling and testing `pyiec61850`
 - [Compiling the Python binding in Linux environment](doc/Step_by_step_workflow_amd64_x86.md)
@@ -92,8 +93,12 @@ pyiec61850_compiled
 │   │       └──  iec61850.py
 ````
 
-Note: for SGFG members, one 7z file containing all src files of libIEC61850 after compilation is placed [here on our 
-sharepoint](https://thude.sharepoint.com/teams/THU-SGFG-GRP/Freigegebene%20Dokumente/SGFG-Group/1000_Projekte/1800_SG_Labor/1822_libiec61850/05_pyIEC61850_compilation_all/pyIEC61850.7z?csf=1&web=1&e=vZVFzl) 
+**_Note_**: the GOOSE functionalities are not in focus regarding our research, consequently, the 
+compiled bindings (in particular for **Linux**) do not include the two associated third-party modules `winpcap` and 
+`mbedtls`. To bypass the GOOSE errors during the compiling, we turned off / ignored certain GOOSE functions. To deploy the linux bindings for 
+GOOSE-related applications, you may have to recompile the lib by yourself. Refer to this documentation [Compiling 
+for **Windows** applications](doc/Compiling_Python_windows.md) for more details regarding the handling of GOOSE functions during compiling.
+
 If you would like to perform a quick test for a specific combination, just go ahead and refer to the documentation 
 [Compiling and testing using **Docker** (accommodating changes in latest Python versions)](doc/Step_by_step_workflow_amd64_x86_docker.md). 
 Well, for flexible deployment, we recommend you to use 3 compiled files and start a new (docker) application.
@@ -164,6 +169,8 @@ is summarised in the file [runpath_check.txt](pyiec61850_compiled/runpath_check.
 - For `libIEC61850>= 1.6`, the filenames of the two essentials are changed from `iec61850.py` and `_iec61850.so 
   (_iec61850.pyd` for Windows) to `pyiec61850.py` and `_pyiec61850.so` accordingly. Make sure you have built a 
   version checker to avoid importlib error.
+
+
 
 <!-- TOC --><a name="demo-tester"></a>
 ### Demo tester
@@ -292,16 +299,17 @@ or directly replace this as a new serial_port_linux.c
 [serial_port_linux.c](./libiec61850_source/serial_port_linux.c)
 
 <!-- TOC --><a name="special-case-for-libIEC61850-16"></a>
-### Special case for libIEC61850 1.6
+### Special case for libIEC61850 1.6 (only when GOOSE functions not needed)
 
-To compile the libIEC61850 for 1.6 , a small change has to be made in the source file before the whole compilation process.
+To compile the libIEC61850 for 1.6, one would need to add several third-party moduls, but if GOOSE is not required, 
+then a small change has to be made in the source file before the whole compilation process to by pass the GOOSE modules.
 
 Redirect to source code `libiec61850-1.6\pyiec61850` and open the iec61850.i file and add these lines in the starting to ignore the Goose Publisher 
 
 ```c
 /* File : iec61850.i */
 %module(directors="1") pyiec61850       /*NOTE: new changed in version 1.6.0*/
- %ignore GoosePublisher_createRemote;    /*NOTE: new added*/
+%ignore GoosePublisher_createRemote;    /*NOTE: new added*/
 %ignore GooseReceiver_createRemote;     /*NOTE: new added*/
 %ignore ControlObjectClient_setTestMode(ControlObjectClient self);
 ```
@@ -311,6 +319,19 @@ or just replace the existing file iec61850.i with this:
 [iec61850.i](./libiec61850_source/iec61850.i)
 
 Then carry on the workflow like usual.
+
+For compiling on windows, one needs more some more lines
+
+  ``` 
+  %module(directors="1") pyiec61850       /*NOTE: new changed in version 1.6.0*/
+  %ignore GoosePublisher_createRemote;    /*NOTE: new added*/
+  %ignore GooseReceiver_createRemote;     /*NOTE: new added*/
+  %ignore GoosePublisher_create;    /*NOTE: new added*/
+  %ignore GoosePublisher_createEx;     /*NOTE: new added*/
+  ``` 
+
+Note that this trick is just a workaround for non-GOOSE applications, the right way to deal with GOOSE errors during 
+compiling is to add the third-party modules properly. More details here: [Compiling for **Windows** applications](doc/Compiling_Python_windows.md)
 
 
 <!-- TOC --><a name="license"></a>

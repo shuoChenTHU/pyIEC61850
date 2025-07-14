@@ -8,32 +8,39 @@ extended by S. Chen and tested by Z. Zhang (mainly for Linux applications).
 <span style="color:red">NOTE:</span> **_the software provider mz-automation provides no support for python bindings, 
 so we are kind of on our own._**
 
-The compiling method proposed by J.Morris worked fine for the version 1.4.1, errors could occur during the compiling 
-procedures of later versions, mainly due to GOOSE related functions that cannot be deactivated for cmake.
+The compiling method proposed by J.Morris worked fine for the version 1.4.1, errors might occur during the compiling 
+procedures of later versions of libiec61850 and legacy python versions, this doc should provide some crucial hints 
+and quick fixes.
 
 The compiled Python lib only works in Windows environment, the extension of the main lib _iec61850.pyd (renamed as 
-pyiec61850.py starting from libIEC61850-1.6), indicates that the lib depends on DLL modules, which are not supported in linux.
+pyiec61850.py starting from libIEC61850-1.6), indicates that the lib depends on DLL modules, which are not supported 
+in  linux.
 
 
 ## Compatibility of different libIEC61850 versions
 
 You may use the table below to check whether your Windows Python environment allows you to run a simulation with a 
-specific version of libIEC61850. If you are a Windows user, the only combination that currently works well is 
-Python 3.7 + libIEC61850 1.4.1...
+specific version of libIEC61850.
 
-latest versions like 1.5 and 1.6 all have fatal problems with GOOSE functions in the python binding. 
-Any kind of debugging effort is appreciated.
+Latest versions like 1.5 and 1.6 all have fatal problems associated with GOOSE functionalities during the python 
+binding, if some additional third-party modules are not properly handled. Any kind of debugging effort is appreciated.
 
-| libIEC61850/Python version |                    libIEC61850 1.4.1                    | libIEC61850 1.5.1 | libIEC61850 1.6 |
-|:---------------------------|:-------------------------------------------------------:|------------------:|----------------:|
-| Python 3.7                 |                compiling ok, pyServer ok                |   compiling error |            N.A. |
-| Python 3.9                 | compiling ok, pyServer causes "connection rejected" error |   compiling error |            N.A. |
-| Python 3.11                | compiling ok, pyServer causes "connection rejected" error |   compiling error |            compiling error|
-| Python 3.12                | compiling ok, pyServer causes "connection rejected" error |   compiling error |            compiling error |
+Below is a brief overview of the compatibility of several combinations, for more details please refer to the
+[test report](../pyiec61850_compiling_results.xlsx)
+
+
+| libIEC61850/Python version |                       libIEC61850 1.4.1                       |              libIEC61850 1.5.0 |                libIEC61850 1.6 |
+|:---------------------------|:-------------------------------------------------------------:|-------------------------------:|-------------------------------:|
+| Python 3.7                 |                 compiling ok ✔, pyServer ok ✔                  |  compiling ok ✔, pyServer ok ✔ |              compiling error ❌ |
+| Python 3.9                 | compiling ok ✔, pyServer causes "connection rejected" error ❌ |  compiling ok ✔, pyServer ok ✔ |               compiling error ❌ |
+| Python 3.11                | compiling ok ✔, pyServer causes "connection rejected" error ❌ |  compiling ok ✔, pyServer ok ✔ |  compiling ok ✔, pyServer ok ✔ |
+| Python 3.12                | compiling ok ✔, pyServer causes "connection rejected" error ❌ |  compiling ok ✔, pyServer ok ✔ |  compiling ok ✔, pyServer ok ✔ |
+| Python 3.13                | compiling ok ✔, pyServer causes "connection rejected" error ❌ | compiling ok ✔, pyServer ok ✔  | compiling ok ✔, pyServer ok  ✔ |
 
 
 ## Preparation
-Download required (open source) build tools
+
+**Download required (open source) build tools**
 
 - MS Visual Studio community edition  _(for this instruction, version 2022 was used)_
 - swig (http://www.swig.org/download.html) _(for this instruction, version 4.2.1 was used, Windows users can 
@@ -46,6 +53,15 @@ If you are not compiling with the default Python version on your machine:
 - you could try to change default python version in Git Bash: see Ibraheem Al-Dhamari's answer in this
 [post](https://stackoverflow.com/questions/32965980/how-to-change-python-version-in-windows-git-bash). In my case it 
   was not sufficient to just change the default Python version. This setting is also not necessary for the compiling.
+
+**Compiling setup used for this documentation**
+
+- Visual Studio 17 2022
+- cmake: version 3.30.3
+- Doxygen: version 1.10.0
+- SWIG: version 4.2.1
+- winpcap: WpdPack 4.1.2
+- mbedtls: 3.6.0 and 2.28.8
 
 
 ## Workflow for compiling
@@ -68,16 +84,38 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
     or on git: https://github.com/mz-automation/libiec61850
 
 
-3. Adjusting the cmake files for `pyiec61850`
+3. Prepare third-party modules
+
+    Starting from `libIEC61850` version 1.5.0, some GOOSE related functions will cause compiling errors. To wipe out those 
+    errors, one could:
+   
+        - either add two required third-party modules
+   
+        - or deactivate and ignore some GOOSE functions
+
+    To add additional moduls winpcap and mbedtls, just use the links provided in the [official git repo](https://github.com/mz-automation/libiec61850/tree/v1.6/third_party) of 
+   `libIEC61850`, we will need winpcap and mbedtls. Note that for winpcap, one should use x64 Lib for winpcap on a x64 
+   system. While mbedtls-3.6.0 supports TLS1.3, it only works for libIEC61850-1.6.0, for 1.5.0 one would need 
+   mbedtls-2.28.8.
+   
+    If you are not interested in GOOSE functions, another workaround is to deactivate and ignore certain functions 
+   before the compiling; we will get to this point soon. This trick only works with libIEC61850-1.6, because in 1.5 
+   and 1.5.1 one cannot deactivate the GOOSE functions by changing the CMakeLists file.
+
+    
+From here, we are going to make amendments in the CMakeLists files, note that these need to be done for two 
+CMakeLists.txt, one in the subfolder `pyiec61850`, one in the root folder.
+
+4. Adjusting the CMakeLists files for `pyiec61850`
     
     One vital working step here is to make sure that the required tools, and the proper version of them can be found 
-   when executing cmake. Usually different Python version might cause problems, so we consider to different 
-   situation here.
+   when executing cmake. Usually different Python versions might cause problems, so we consider to different 
+   situations here.
    
         case 1: Compiling for the latest Python version installed on your machine (the default one)
         case 2: Compiling for a specific Python version (we have to specify some more hyper parameters)
 
-   1) <span style="color:red">(only relevant for case 1)</span> Compiling for the installed Python version
+   1) <span style="color:red">(only relevant for case 1)</span> **Compiling for the installed Python version**
    
         This is a simple case, and this step is actually optional, only do this if cmake throws errors. We only need 
       to make minor changes and cmake can still find the proper versions automatically.
@@ -101,7 +139,7 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
         find_package(PythonLibs REQUIRED)	
         ```
 
-   2) <span style="color:red">(only relevant for case 2)</span> Compiling for a specific Python version
+   2) <span style="color:red">(only relevant for case 2)</span> **Compiling for a specific Python version**
    
         The second case is much more complicated, we have to tell cmake the locations of Python interpreter, Python 
       libs and Python root path. For demonstration, the libIEC61850 stack was being compiled for Python 3.12 on a 
@@ -134,9 +172,9 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
         cmake_minimum_required(VERSION 3.8)
         ```
 
-4. Adjusting the cmake files for libIEC61850
+5. Adjusting the CMakeLists files for libIEC61850
 
-    The last step is only for the `pyiec61850`, additionally we could also make some changes to the CMakeList 
+    The previous step is only for the `pyiec61850`, additionally we could also make some changes to the CMakeList 
    of the entire libIEC61850 stack.
 
     Go back to the root directory, open the `…\libiec61850\CMakeLists.txt` file, activate the build flag for python, 
@@ -154,11 +192,50 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
       option(BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
       ```
 
-    You can also play around with other settings, e.g. deactivating GOOSE functions if not required. Now we are 
-   ready to call cmake.
+    In the case of compiling for a specific python version, also apply the changes to this CMakeLists file 
+   as in the second case above.
 
+6. (Only for non-GOOSE applications, and libIEC61850-1.6) Changes required to avoid GOOSE errors
+    <span style="color:red">Attention for libIEC61850-1.6 and higher versions: 
 
-5. generate solution file using cmake
+    If you have properly placed the additional modules in the subfolder `./third_party`, then those modules will be 
+   found by cmake as shown below and you won't run into GOOSE related errors. 
+   
+    ![third_party_moduels](../figures/third_party_moduels.png)
+
+    If that is not the case, Visual Studio will later throw you a bunch of errors. Well, if you do not really need 
+   GOOSE function, then another workaround is to deactivate 
+
+    ```    
+    option(CONFIG_IEC61850_L2_GOOSE "Build with support for L2 GOOSE (winpcap required on windows)" OFF)
+    option(CONFIG_IEC61850_L2_SMV "Build with support for L2 SMV (winpcap required on windows)" OFF)
+    option(CONFIG_IEC61850_R_GOOSE "Build with support for R-GOOSE (mbedtls required)" OFF)
+    option(CONFIG_IEC61850_R_SMV "Build with support for R-SMV (mbedtls required)" OFF)    
+    ```
+  
+    while on the other line above, keep the GOOSE support ON (this is important!)
+    
+    ```
+    option(CONFIG_ACTIVATE_TCP_KEEPALIVE "Activate TCP keepalive" ON)
+    option(CONFIG_INCLUDE_GOOSE_SUPPORT "Build with GOOSE support" ON)
+    ```    
+    
+    Moreover, several lines need to be added to the file `./pyiec61850/iec61850.i`. Compare to the linux case as 
+   described in the README file, the windows case needs two more lines.    
+
+    ``` 
+    %module(directors="1") pyiec61850       /*NOTE: new changed in version 1.6.0*/
+    %ignore GoosePublisher_createRemote;    /*NOTE: new added*/
+    %ignore GooseReceiver_createRemote;     /*NOTE: new added*/
+    %ignore GoosePublisher_create;    /*NOTE: new added*/
+    %ignore GoosePublisher_createEx;     /*NOTE: new added*/
+    ``` 
+    
+    These lines can also be later be directly added to the file `iec61850.i` in Visual Studio.    
+
+Now we are ready to call cmake.
+
+7. generate solution file using cmake
 
     Working steps:
     - open Git Bash or any other CMD terminal, navigate to the folder `<path libIEC61850>/pyiec61850 `
@@ -184,7 +261,7 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
           cmake -G "Visual Studio 17 2022" ..  
           ``` 
         
-          On the last line, `..` means use the Cmakefile in parent dir, do not forget it.        
+          On the last line, `..` means use the CMakeLists file in parent dir, do not forget it.        
 
           After cmake in `./pyiec61850`, a .sln file should haven been generated along with several VS project files. Open 
        this file Project.sln in VS 2022, you should see the "_iec61850" module (pyiec61850.py as of libIEC61850-1.6) in the 
@@ -235,7 +312,7 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
 	![solutionFile](../figures/cmake_solutionFile.png) 
 	
 
-6. build libIEC61850
+8. build libIEC61850
     
     In the `build` folder, a sub-folder `pyiec61850` will also be generated after by cmake, depending on 
 	the user configuration in CMakeList file and the previously generated `pyiec61850` module using the first cmake. 
@@ -255,7 +332,7 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
 	process will take a while, ignore the warnings as long as the process is not forced stopped.
 	
 
-7. check the compiled python lib:
+9. check the compiled python lib:
 
     The build process can be considered as successful, if no error was reported and these two python files can
     be found: 	
@@ -288,7 +365,7 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
    ![py_wrong_version](../figures/C1083.png)    
 
 
-- **_lib can not be opened**_ error
+- **_lib can not be opened_** error
     
     If any error indicating "xxx.lib can not be opened" shows up during the compile process, it could mean that this 
   lib was not properly generated/compiled by cmake. One might consider compile this sub-project at first, before 
@@ -299,25 +376,41 @@ Please follow the following procedures to compile the libIEC61850 as a Python bi
      build\hal\Release. Then you can proceed to the compiling of the entire project.)
 
 
+- `[LINK2019]` **_GOOSE related errors_**
+    
+    As mentioned many times above, if the GOOSE related modules are not handled properly, one may be returned fatal 
+  errors. Here are some examples, if you run into any error of these kinds, consider reading the hints in this doc 
+  again and make amendments to the files.
+    
+    **Example 1:** no third-party modules added, but forgot to turn off / ignore GOOSE functions: 
+      ![error_no_third_party](../figures/error_no_third_party.png)
+    
+    **Example 2:** winpcap added, GOOSE turned on, but forgot to use the Libs in x64 for x64 platform
+    ![error_goose_on](../figures/error_goose_on.png)
+
+    **Example 3:** in `./third_party/winpcap`, GOOSE turned off, but forgot to use the Libs in x64 for x64 platform.
+    ![error_winpcap](../figures/error_winpcap.png)
+
 - other errors
     
     we have no experience for fixing other errors, help yourself, kid.
      
  ## Known restrictions
  ### libIEC61850 version 1.5 and later
- During the compiling process, Visual Studio throws a GOOSE related error back. Setting the GOOSE functionalities to 
- `OFF` in the CMakeLists file can not solve the problem.
+Since the CMakeLists file has been changed a lot in latest versions, the python interpreter may not be found by cmake 
+properly when compiling for legacy python versions.
 
 
  ### libIEC61850 version 1.4.1 + Python 3.9 and later
 The IEC 61850 server seems to be fine, but whenever a client request an IEC 61850 MMS connection, it just gets 
-stuck at `[OSI_CONNECT_COTP]`, no TCP connection can be established. Servers using Python 3.7 do not have this issue.
+stuck at `[OSI_CONNECT_COTP]`, no TCP connection can be established.
 
  ![COTP](../figures/COTP.png)
  
+Servers using libIEC61850-1.4.1 Python 3.7 or higher versions of libIEC61850 do not have this issue.
 
 ### Relevant posts
-Thanks to following posts, a practical compiling workflow can be created:
+Thanks to the following posts, a practical compiling workflow can be created:
 
 - hints provided by cmake official documentation: https://cmake.org/cmake/help/latest/module/FindPython3.html
 - hint for `unset(Python_EXECUTABLE)`: https://gitlab.kitware.com/cmake/cmake/-/issues/23139
