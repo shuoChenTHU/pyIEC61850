@@ -1,31 +1,33 @@
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+# pyIEC61850 - Python bindings of libIEC61850 
 
-# Table of Contents
-- [Quick links for documentation](#quick-links-for-documentation)
-  + [General instructions for compiling the Python binding `pyiec61850`](#general-instructions-for-compiling-the-python-binding-pyiec61850)
-  + [Quick Step-by-step workflow for compiling and testing `pyiec61850`](#quick-step-by-step-workflow-for-compiling-and-testing-pyiec61850)
-- ["The" library `libIEC61850`](#the-library-libIEC61850)
-- [How to use the Python binding `pyiec61850`](#how-to-use-the-python-binding-pyiec61850)
-  + [Deploy `pyiec61850` for Windows applications](#deploy-pyiec61850-for-windows-applications)
-  + [Deploy `pyiec61850` for linux applications](#deploy-pyiec61850-for-linux-applications)
-  + [Important notions](#Important-notions)
-  + [Demo tester](#demo-tester)
-  + [Quick debug for Linux (Changing runpath of the required dependency file)](#quick-debug-for-linux-changing-runpath-of-the-required-dependency-file)
-- [Compiling the Python binding by yourself](#compiling-the-python-binding-by-yourself)
-  + [Compiling for Windows](#compiling-for-windows)
-  + [Compiling for amd64(x86-64) Linux (e.g. WSL2, QNAP NAS)](#compiling-for-amd64x86-64-linux-eg-wsl2-qnap-nas)
-  + [Compiling for arm64(aarch64) Linux (e.g. Raspberry Pi 4/5)](#compiling-for-arm64aarch64-linux-eg-raspberry-pi-45)
-  + [Compiling for arm32 Linux (e.g. Raspberry Pi 3)](#compiling-for-arm32-linux-eg-raspberry-pi-3)
-  + [Compiling and testing using Docker](#compiling-and-testing-using-docker)
-  + [Special case for libIEC61850 1.4.1](#special-case-for-libIEC61850-141)
-  + [Special case for libIEC61850 1.6](#special-case-for-libIEC61850-16)
-- [License](#license)
-  + [Third-party licenses](#third-party-licenses)
-  + [Copyright of the test script:](#copyright-of-the-test-script)
-  + [SGFG contributors:](#sgfg-contributors)
-  + [official websites of libIEC61850:](#official-websites-of-libiec61850)
-
-<!-- TOC end -->
+<!-- TOC -->
+* [Table of Contents](#table-of-contents)
+* [Quick links for documentation](#quick-links-for-documentation)
+    * [General instructions for compiling the Python binding `pyiec61850`](#general-instructions-for-compiling-the-python-binding-pyiec61850)
+    * [Quick Step-by-step workflow for compiling and testing `pyiec61850`](#quick-step-by-step-workflow-for-compiling-and-testing-pyiec61850)
+* ["The" library `libIEC61850`](#the-library-libiec61850)
+* [How to use the Python binding `pyIEC61850`](#how-to-use-the-python-binding-pyiec61850)
+    * [Deploy `pyIEC61850` for Windows applications](#deploy-pyiec61850-for-windows-applications)
+    * [Deploy `pyIEC61850` for linux applications](#deploy-pyiec61850-for-linux-applications)
+    * [Important notions](#important-notions)
+    * [Demo tester](#demo-tester)
+    * [Quick debug for Linux (Changing runpath of the required dependency file)](#quick-debug-for-linux-changing-runpath-of-the-required-dependency-file)
+* [Compiling the Python binding by yourself](#compiling-the-python-binding-by-yourself)
+    * [Compiling for Windows](#compiling-for-windows)
+    * [Compiling for amd64(x86-64) Linux (e.g. WSL2, QNAP NAS)](#compiling-for-amd64x86-64-linux-eg-wsl2-qnap-nas)
+    * [Compiling for arm64(aarch64) Linux (e.g. Raspberry Pi 4/5)](#compiling-for-arm64aarch64-linux-eg-raspberry-pi-45)
+    * [Compiling for arm32 Linux (e.g. Raspberry Pi 3)](#compiling-for-arm32-linux-eg-raspberry-pi-3)
+    * [Compiling and testing using Docker](#compiling-and-testing-using-docker)
+    * [Special case for libIEC61850 1.4.1](#special-case-for-libiec61850-141)
+    * [Special case for libIEC61850 1.6 (only when GOOSE functions not needed)](#special-case-for-libiec61850-16-only-when-goose-functions-not-needed)
+* [Other Information](#other-information)
+  * [SGFG contributors:](#sgfg-contributors)
+  * [Funding](#funding)
+* [License](#license)
+    * [Third-party licenses](#third-party-licenses)
+    * [Copyright of the test script:](#copyright-of-the-test-script)
+    * [official websites of libIEC61850:](#official-websites-of-libiec61850)
+<!-- TOC -->
 
 <!-- TOC --><a name="quick-links-for-documentation"></a>
 # Quick links for documentation
@@ -99,6 +101,9 @@ compiled bindings (in particular for **Linux**) do not include the two associate
 GOOSE-related applications, you may have to recompile the lib by yourself. Refer to this documentation [Compiling 
 for **Windows** applications](doc/Compiling_Python_windows.md) for more details regarding the handling of GOOSE functions during compiling.
 
+
+**_Note_**: for SGFG members, one 7z file containing all src files of libIEC61850 after compilation is placed [here on our 
+sharepoint](https://thude.sharepoint.com/teams/THU-SGFG-GRP/Freigegebene%20Dokumente/SGFG-Group/1000_Projekte/1800_SG_Labor/1822_libiec61850/05_pyIEC61850_compilation_all/pyIEC61850.7z?csf=1&web=1&e=vZVFzl) 
 If you would like to perform a quick test for a specific combination, just go ahead and refer to the documentation 
 [Compiling and testing using **Docker** (accommodating changes in latest Python versions)](doc/Step_by_step_workflow_amd64_x86_docker.md). 
 Well, for flexible deployment, we recommend you to use 3 compiled files and start a new (docker) application.
@@ -232,8 +237,7 @@ we provide you with some useful step-by-step instructions anyhow.
 <!-- TOC --><a name="compiling-for-windows"></a>
 ### Compiling for Windows
 For windows applications, you may refer to this instruction: [Cmpiling the Python binding for **Windows** 
-environment](doc/Compiling_Python_windows.md). Unfortunately by our experience, the only stable version of the 
-windows Python binding is 1.4.1.
+environment](doc/Compiling_Python_windows.md).
 
 <!-- TOC --><a name="compiling-for-amd64x86-64-linux-eg-wsl2-qnap-nas"></a>
 ### Compiling for amd64(x86-64) Linux (e.g. WSL2, QNAP NAS)
@@ -334,6 +338,48 @@ Note that this trick is just a workaround for non-GOOSE applications, the right 
 compiling is to add the third-party modules properly. More details here: [Compiling for **Windows** applications](doc/Compiling_Python_windows.md)
 
 
+# Other Information
+
+<!-- TOC --><a name="sgfg-contributors"></a>
+## SGFG contributors:
+
+- **Falko Ebe**: Initiative for the deployment of `libIEC61850` in SGFG
+- **Heiko Lorenz**: first SGFG developer using `libIEC61850` and Qt 
+- **Jeromie Morris**: initial compilation of the Python binding `pyIEC61850` and testing of the `libIEC61850` 
+  server/client API
+  use in Windows environment. 
+- **Shuo Chen**: adaption of the Python binding `pyIEC61850` to 64-bit linux environment (amd64, arm64) and docker 
+  application, 
+  developer of the testing scripts using the `libIEC61850` server/client API. Main contributor of this git repo and the documentations.
+- **Zhiyu Lu**: compiling hints for the version **libIEC61850-1.6** to get around GOOSE and SV related compiling errors.
+, support in establishing the docker workflow
+- **Zhongran Zhang**: compiling of the Python binding on 32-bit linux platform, testing of the compiled libs for 
+  several OS and applications.
+- **Moritz Schwarz**: testing of the compiled libs for several OS and applications.
+- **Ashish Pandey**: systematic compiling and testing of the Python binding for almost common combinations of OS, 
+  python version and `libIEC61850` version except for 32-bit linux; reduction of docker image size; refinement of 
+  the workflow documentation.
+
+
+## Funding
+The conception and implementation of pyiec61850DER was co-funded by the following research project:
+
+- "MeGA", grant number 03EI6108E (BMWK)
+  - Prototyping for the virtual IED representing controllable DER (ied_server, iec61850_mms, data_buffer, runtime 
+    interface)
+  - Prototyping for real-time DER communication interface (Sunspec)
+  - Major code refactoring of the virtual IED
+  - Compiling the Python binding of `pylibIEC61850`
+  - Implementation of the container configuration generation in batch
+  - Implementation and testing of scaled virtual IED simulation in combination with `pandapower` network models and 
+    network simulation solvers.
+
+- “SERENDI-PV”, grant number 953016 (EU H2020) 
+  - Prototyping for the IEC 61850 DER data model generator
+  - Prototyping for the data interfaces (local, influxdb)
+  - Integration of solar irradiation / power prediction into the IEC 61850 data structure
+
+
 <!-- TOC --><a name="license"></a>
 # License
 
@@ -346,38 +392,13 @@ These parts come with their own copyright and licence:
 
 <!-- TOC --><a name="copyright-of-the-test-script"></a>
 ### Copyright of the test script:
-- Copyright (c) 2019-2025 J. Morris, S. Chen, Ulm University of Applied Sciences [THU](http://www.thu.de);  Smart 
+- Copyright (c) 2019-2026 J. Morris, S. Chen, Ulm University of Applied Sciences [THU](http://www.thu.de);  Smart 
   Grids Research Group [SGFG](https://studium.hs-ulm.de/de/org/iea/smartgrids/)
 
 The compiled python libs and associated test scripts are provided under the license of GNU GPL v3. We hope they 
 could be useful, but WITHOUT ANY WARRANTY. See the GNU General Public License for more details.
 
 The Smart Grids Research Group keeps seeking solutions for the current and future smart grids, we are open to further discussion.
-
-<!-- TOC --><a name="sgfg-contributors"></a>
-### SGFG contributors (in chronological order):
-
-- **F. Ebe**: Initiative for the deployment of `libIEC61850` in SGFG
-- **H. Lorenz**: first SGFG developer using `libIEC61850` and Qt 
-- **J. Morris**: initial compilation of the Python binding `pyIEC61850` and testing of the `libIEC61850` 
-  server/client API in Windows environment. 
-- **S. Chen**: adaption of the Python binding `pyIEC61850` to 64-bit linux environment (amd64, arm64) and docker 
-  application, developer of the testing scripts using the `libIEC61850` server/client API. **Main contributor** of this git repo and the documentations.
-- **Z. Lu**: compiling hints for the version **libIEC61850-1.6** to get around GOOSE and SV related compiling errors.
-, support in establishing the docker workflow
-- **Z. Zhang**: compiling of the Python binding on 32-bit raspberry, testing of the compiled libs for 
-  several OS and applications.
-- **M. Schwarz**: testing of the compiled libs for several OS and applications.
-- **A. Pandey**: systematic compiling and testing of the Python binding for combinations of common linux OS, 
-  python version and `libIEC61850` version except for 32-bit raspberry; reduction of docker image size; refinement of 
-  the workflow documentation.
-
-
-## Funding
-The work documented in this repo was funded by the following research projects:
-
-- "MeGA", grant number 03EI6108E (BMWK)
-- “SERENDI-PV”, grant number 953016 (EU H2020)
 
 
 <!-- TOC --><a name="official-websites-of-libiec61850"></a>

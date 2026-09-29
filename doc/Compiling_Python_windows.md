@@ -13,7 +13,7 @@ procedures of later versions of libiec61850 and legacy python versions, this doc
 and quick fixes.
 
 The compiled Python lib only works in Windows environment, the extension of the main lib _iec61850.pyd (renamed as 
-pyiec61850.py starting from libIEC61850-1.6), indicates that the lib depends on DLL modules, which are not supported 
+pyiec61850.py starting from `libIEC61850-1.6`), indicates that the lib depends on DLL modules, which are not supported 
 in  linux.
 
 
@@ -22,20 +22,20 @@ in  linux.
 You may use the table below to check whether your Windows Python environment allows you to run a simulation with a 
 specific version of libIEC61850.
 
-Latest versions like 1.5 and 1.6 all have fatal problems associated with GOOSE functionalities during the python 
-binding, if some additional third-party modules are not properly handled. Any kind of debugging effort is appreciated.
+**NOTE**: Latest versions like 1.5 and 1.6 require special handling and some additional third-party modules for GOOSE 
+functionalities.
 
 Below is a brief overview of the compatibility of several combinations, for more details please refer to the
 [test report](../pyiec61850_compiling_results.xlsx)
 
 
-| libIEC61850/Python version |                       libIEC61850 1.4.1                       |              libIEC61850 1.5.0 |                libIEC61850 1.6 |
-|:---------------------------|:-------------------------------------------------------------:|-------------------------------:|-------------------------------:|
-| Python 3.7                 |                 compiling ok ✔, pyServer ok ✔                  |  compiling ok ✔, pyServer ok ✔ |              compiling error ❌ |
-| Python 3.9                 | compiling ok ✔, pyServer causes "connection rejected" error ❌ |  compiling ok ✔, pyServer ok ✔ |               compiling error ❌ |
-| Python 3.11                | compiling ok ✔, pyServer causes "connection rejected" error ❌ |  compiling ok ✔, pyServer ok ✔ |  compiling ok ✔, pyServer ok ✔ |
-| Python 3.12                | compiling ok ✔, pyServer causes "connection rejected" error ❌ |  compiling ok ✔, pyServer ok ✔ |  compiling ok ✔, pyServer ok ✔ |
-| Python 3.13                | compiling ok ✔, pyServer causes "connection rejected" error ❌ | compiling ok ✔, pyServer ok ✔  | compiling ok ✔, pyServer ok  ✔ |
+| libIEC61850/Python version |                                          libIEC61850 1.4.1                                          |              libIEC61850 1.5.0 |                libIEC61850 1.6 |
+|:---------------------------|:---------------------------------------------------------------------------------------------------:|-------------------------------:|-------------------------------:|
+| Python 3.7                 |                                    compiling ok ✔, pyServer ok ✔                                    |  compiling ok ✔, pyServer ok ✔ |              compiling ok ✔, pyServer ok ✔ |
+| Python 3.9                 |                                   compiling ok ✔ , pyServer ok ✔                                    |  compiling ok ✔, pyServer ok ✔ |               compiling ok ✔, pyServer ok ✔ |
+| Python 3.11                |                    compiling ok ✔, pyServer causes "connection rejected" error ❌                    |  compiling ok ✔, pyServer ok ✔ |  compiling ok ✔, pyServer ok ✔ |
+| Python 3.12                |                    compiling ok ✔, pyServer causes "connection rejected" error ❌                    |  compiling ok ✔, pyServer ok ✔ |  compiling ok ✔, pyServer ok ✔ |
+| Python 3.13                |                    compiling ok ✔, pyServer causes "connection rejected" error ❌                    | compiling ok ✔, pyServer ok ✔  | compiling ok ✔, pyServer ok  ✔ |
 
 
 ## Preparation
@@ -160,16 +160,35 @@ CMakeLists.txt, one in the subfolder `pyiec61850`, one in the root folder.
 
       <img alt="set_python_version" src="../figures/set_python_version.png" width="500"/>
    
-        In some cases, one might have to activate the new find_package syntax (e.g. for libIEC61850-1.6):
+        <span style="color:red">(Special handling for libIEC61850-1.6) </span> In some cases, one might have to 
+      activate the new 
+      find_package syntax (e.g. for libIEC61850-1.6):
         
         ```
         find_package(Python COMPONENTS Interpreter Development REQUIRED)  
         ```
+      
+        and for an exact Python version, use this line instead
 
-        To make this work, you also need to active the cmake minimum version on top:      
+        ```
+        find_package(Python 3.7 EXACT COMPONENTS Interpreter Development.Module REQUIRED)
+        ```
+      
+        To make this work, you might also need to activate the cmake minimum version on top:      
 
         ```
         cmake_minimum_required(VERSION 3.8)
+        ```
+        
+        <span style="color:red">(Special handling for libIEC61850-1.6) </span>  In particular, when compiling the 
+      lib version `1.6.0 `for `Python <=3.9`, you must specify the SWIG 
+      executable as follows, otherwise cmake will throw an error `can not find swig_add_library`.
+    
+        ```    
+        # Explicitly load SWIG so "swig_add_library" is fully recognized
+        set(SWIG_EXECUTABLE "C:/DATA/swigwin-4.2.1/swig.exe")
+        find_package(SWIG REQUIRED)
+        include(${SWIG_USE_FILE})
         ```
 
 5. Adjusting the CMakeLists files for libIEC61850
@@ -396,18 +415,12 @@ Now we are ready to call cmake.
     we have no experience for fixing other errors, help yourself, kid.
      
  ## Known restrictions
- ### libIEC61850 version 1.5 and later
-Since the CMakeLists file has been changed a lot in latest versions, the python interpreter may not be found by cmake 
-properly when compiling for legacy python versions.
 
-
- ### libIEC61850 version 1.4.1 + Python 3.9 and later
-The IEC 61850 server seems to be fine, but whenever a client request an IEC 61850 MMS connection, it just gets 
-stuck at `[OSI_CONNECT_COTP]`, no TCP connection can be established.
+ ### libIEC61850 version 1.4.1 + Python >=3.11 
+With these particular combinations, the IEC 61850 server runs normally, but whenever a client request an IEC 
+61850 MMS connection, it just gets stuck at `[OSI_CONNECT_COTP]` (error code 5), no TCP connection can be established.
 
  ![COTP](../figures/COTP.png)
- 
-Servers using libIEC61850-1.4.1 Python 3.7 or higher versions of libIEC61850 do not have this issue.
 
 ### Relevant posts
 Thanks to the following posts, a practical compiling workflow can be created:

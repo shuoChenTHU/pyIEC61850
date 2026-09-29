@@ -30,7 +30,11 @@ from logging.handlers import RotatingFileHandler
 
 
 # local lib
-import iec61850 as iec
+try:
+    import pyiec61850 as iec
+except:
+    import iec61850 as iec
+
 
 ##############################################################################
 #####################     service initialization      ########################
