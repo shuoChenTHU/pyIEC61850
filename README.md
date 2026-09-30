@@ -21,7 +21,6 @@
     * [Special case for libIEC61850 1.4.1](#special-case-for-libiec61850-141)
     * [Special case for libIEC61850 1.6 (only when GOOSE functions not needed)](#special-case-for-libiec61850-16-only-when-goose-functions-not-needed)
 * [Other Information](#other-information)
-  * [Application examples of pyiec61850 in SGFG](#application-examples-of-pyiec61850-in-sgfg)
   * [SGFG contributors:](#sgfg-contributors)
   * [Funding](#funding)
 * [License](#license)
@@ -341,18 +340,6 @@ compiling is to add the third-party modules properly. More details here: [Compil
 
 # Other Information
 
-<!-- TOC --><a name="application-examples-of-pyiec61850-in-sgfg"></a>
-## Application examples of pyiec61850 in SGFG
-
-Based on the Python binding of libIEC61850 and its server/client API, plenty of IEC 61850 applications have 
-been successfully demonstrated in SGFG, these include:
-
-- https://141.59.42.194:8443/iec61850/pyiec61850_windows
-- https://141.59.42.194:8443/iec61850/py_iec61850_server_dm_autogen
-- https://141.59.42.194:8443/iec61850/abstimmungskaskade/py_iec61850_server 
-- https://141.59.42.194:8443/iec61850/libiec61850_client
-- https://141.59.42.194:8443/iec61850/iec61850datamodelgenerator
-- https://141.59.42.194:8443/iec61850/pyiec61850der
 - 
 <!-- TOC --><a name="sgfg-contributors"></a>
 ## SGFG contributors:
