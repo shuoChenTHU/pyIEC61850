@@ -340,7 +340,6 @@ compiling is to add the third-party modules properly. More details here: [Compil
 
 # Other Information
 
-- 
 <!-- TOC --><a name="sgfg-contributors"></a>
 ## SGFG contributors:
 
